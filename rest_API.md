@@ -87,3 +87,17 @@ ___
 
 **엄청난 이해도를 높혀주는 짤**
 ![description](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fdz8rUC%2Fbtrac9N6JdL%2Fks92BmSKrKGfREXjB9NKg0%2Fimg.png)
+___
+
+#### Path Variable
+
+url 값에 가변 변수를 사용할 수 있다.
+
+```java
+public class HelloWorldController {
+  @GetMapping(path="/hello-world-bean/path-variable/{name}") //가변 변수 적용
+    public HelloWorldBean helloWorldBean(@PathVariable String name) {    //만약 여기 name과 위에 name 이름이 다르다면 @PathVariable(value="name")이라고 지정해줘야함
+        return new HelloWorldBean(String.format("Hello World, %s",name));
+    }
+}
+```
