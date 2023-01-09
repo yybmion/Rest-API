@@ -25,4 +25,4 @@ public class UserNotFoundException extends RuntimeException {
         super(message);
     }
 }
-```
+```![20230109_213536](https://user-images.githubusercontent.com/113106136/211309336-9bde3ece-ffb4-4a00-87db-ed82c36a8bcd.png)
