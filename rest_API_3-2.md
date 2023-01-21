@@ -55,7 +55,7 @@ spring:
 ```java
 @GetMapping(path="/hello-world-internationalized")
     public String helloWorldIdInternationalized(
-            @RequestHeader(value = "Accept-Language",required = false) Locale locale){ //Accept-Language라는 헤더값이 포함되지 않았을 경우에는 default locale 값(한국어)을 설정된다
+            @RequestHeader(name = "Accept-Language",required = false) Locale locale){ //Accept-Language라는 헤더값이 포함되지 않았을 경우에는 default locale 값(한국어)을 설정된다
         return messageSource.getMessage("greeting.message",null,locale);
     }
  ```
