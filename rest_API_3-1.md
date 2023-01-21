@@ -50,6 +50,8 @@ ResponseEntityExceptionHandler에 들어가 해당 메소드를 끌어온다.
 
 **Q. 여기서 하나의 의문점은 여기는 왜 @ExcepionHandler를 사용하지 않는것일까?**
 
+파라미터가 잘못 입력되었을 때 해당 예외가 발생해야한다. 그러려면 @ExceptionHandler를 사용해야하는것이 아닌가?
+
 그래서 run을 하고 @valid 검사를 통해 예외가 발생하면 해당 결과값이 보여진다.
 
 ![12](https://user-images.githubusercontent.com/113106136/212540587-8aba8782-b7fd-41b0-a94a-e09f970cd6f0.png)
