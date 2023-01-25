@@ -151,7 +151,30 @@ insert into post values(10002, 'My second post',99991);
  
 ![7](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmzAcO%2FbtqHoXBwm7E%2FLs1PjL4tmaHXBFFKmo8kd1%2Fimg.png)
   
-  
-  
-  
+___
+    
+## Post Entity와 User Entity의 게시물 조회
+    
+```java
+// Post Entity를 사용할 수 있는 게시물 조회 메소드
+@GetMapping("/users/{id}/posts")
+public List<Post> retrieveAllPostByUser(@PathVariable int id){
+
+    Optional<User> user = userRepository.findById(id);
+
+    // Optional<T> findById(ID var1)
+    // 리턴값이 Optional인 이유 : 데이터가 존재할수도 안할수도 있기때문에
+
+    if(!user.isPresent()){
+        throw  new UserNotFoundException(String.format("ID[%s] not found",id));
+    }
+
+    return user.get().getPosts();
+}
+```
+    
+![8](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbzUV9V%2FbtqHoWo3bJZ%2FDMVmCYf9DbHL2QzSYEqksK%2Fimg.png)
+    
+    
+    
   
