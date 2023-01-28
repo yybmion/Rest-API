@@ -1,6 +1,16 @@
 ## JPA를 이용한 개별 사용자 목록 조회 GET
 ___
 
+
+```java
+@Repository
+// 데이터베이스에 관련된 bean임을 명시하는 어노테이션
+public interface UserRepository extends JpaRepository<User,Integer> {
+    // JpaRepository<다룰 Entity의 타입, 기본키의 데이터 타입>
+
+}
+```
+
 ```java
 @RestController
 @RequestMapping("/jpa")
