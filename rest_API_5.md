@@ -185,6 +185,54 @@ public List<Post> retrieveAllPostByUser(@PathVariable int id){
     
 ![8](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbzUV9V%2FbtqHoWo3bJZ%2FDMVmCYf9DbHL2QzSYEqksK%2Fimg.png)
     
+___
     
+```java
+@Repository
+public interface PostRepository extends JpaRepository<Post,Integer> {
+
+}
+```
     
-  
+UserJpaController
+    
+```java
+@Autowired
+private PostRepository postRepository;
+ 
+// 게시물 추가
+@PostMapping("/users/{id}/posts")
+public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post){
+
+    // 사용자 정보를 검색하여 그 정보의 id값을 post에 지정해줘야함
+    Optional<User> user = userRepository.findById(id);
+
+    // Optional<T> findById(ID var1)
+    // 리턴값이 Optional인 이유 : 데이터가 존재할수도 안할수도 있기때문에
+
+    if(!user.isPresent()){
+        throw  new UserNotFoundException(String.format("ID[%s] not found",id));
+    }
+
+    post.setUser(user.get());
+
+    Post savePost =postRepository.save(post);
+
+    // 사용자에게 요청 값을 변환해주기
+    // fromCurrentRequest() :현재 요청되어진 request값을 사용한다는 뜻
+    // path : 반환 시켜줄 값
+    // savedUser.getId() : {id} 가변변수에 새롭게 만들어진 id값 저장
+    // toUri() : URI형태로 변환
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(savePost.getId())
+            .toUri();
+
+    return ResponseEntity.created(location).build();
+}
+```
+    
+![24](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FecnjBl%2FbtqHvBxyIU9%2FtEPp3aiZz8hB0Cr9pFhlrk%2Fimg.png)
+    
+![25](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc1od8f%2FbtqHjpMoFMH%2FKVizgfrUjX6Ggrk5XzUa3K%2Fimg.png)
+    
